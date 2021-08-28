@@ -13,6 +13,8 @@ ARG OTFCC_VER=0.10.4
 ARG PREMAKE_VER=5.0.0-alpha15
 ARG NODE_VER=14
 
+RUN useradd -rm -d /home/ning -s /bin/bash -g root -G sudo -u 1000 ning
+
 RUN apt-get update \
     && DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
         build-essential \
@@ -44,6 +46,7 @@ RUN apt-get update \
 
 COPY run.sh /run.sh
 
+USER ning
 WORKDIR /build
 ENTRYPOINT ["/bin/bash", "/run.sh"]
 
